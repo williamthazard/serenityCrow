@@ -58,6 +58,18 @@ function w_changer()
         print('wsyn fm denominator set to ',fmDen)
     end
 end
+function w_timer()
+    while true do
+        clock.sync(durseq[math.random(#durTables)]())
+        local time = math.random(2)
+        ii.wsyn.lpg_time(-1*clock.get_beat_sec()/time)
+        if time == 1 then
+            print('wsyn lpg time set to full')
+        elseif time == 2 then
+            print('wsyn lpg time set to half')
+        end
+    end
+end
 for i=1,6 do
     jf_pitch[i] = function()
         while true do
@@ -112,4 +124,5 @@ function init()
     end
     clock.run(runner)
     clock.run(w_changer)
+    clock.run(w_timer)
 end
