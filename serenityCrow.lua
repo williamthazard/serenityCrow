@@ -96,6 +96,7 @@ for i=1,4 do
     end
 end
 function init()
+    clock.tempo = 30
     input[1].mode('clock',1/2)
     for i=1,4 do
         output[i].action = loop{to(5,clock.get_beat_sec()*i*1024),to(-5,clock.get_beat_sec()*i*1024)}
