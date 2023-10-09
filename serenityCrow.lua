@@ -33,6 +33,7 @@ for i=1,10 do
             if i == 1 then
                 shuffle(durTables)
                 for j=1,16 do
+                    shuffle(durTables[i])
                     durseq[i] = s(durTables[i])
                 end
                 print('shuffling note duration sequences')
@@ -61,13 +62,12 @@ end
 function w_timer()
     while true do
         clock.sync(durseq[math.random(#durTables)]())
-        local time = math.random(2)
-        ii.wsyn.lpg_time(-1*clock.get_beat_sec()/time)
-        if time == 1 then
-            print('wsyn lpg time set to full')
-        elseif time == 2 then
-            print('wsyn lpg time set to half')
-        end
+        local time = math.random(-5,5)
+        local symmetry = math.random(-5,5)
+        ii.wsyn.lpg_time(clock.get_beat_sec()/time)
+        ii.wsyn.lpg_symmetry(symmetry)
+        print('wsyn lpg time set to ',time)
+        print('wsyn lpg symmetry set to ',symmetry)
     end
 end
 for i=1,6 do
@@ -104,6 +104,7 @@ function init()
     end
     ii.jf.mode(1)
     ii.jf.run_mode(1)
+    ii.wsyn.ar_mode(1)
     ii.wsyn.curve(0)
     ii.wsyn.ramp(0)
     ii.wsyn.fm_index(1)
